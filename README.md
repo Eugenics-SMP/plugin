@@ -1,0 +1,2 @@
+# plugin
+Eugenics SMP plugin
