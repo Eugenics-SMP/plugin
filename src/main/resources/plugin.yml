@@ -1,0 +1,4 @@
+name: eugenics-plugin
+version: '${version}'
+main: lol.subhuman.eugenics.EugenicsPlugin
+api-version: '1.20'
