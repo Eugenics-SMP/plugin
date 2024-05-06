@@ -1,5 +1,8 @@
 package lol.subhuman.eugenics.entity.player.phenotype;
 
+import lol.subhuman.eugenics.entity.player.phenotype.impl.negroid.bambutid.MalagasidPhenotype;
+import lol.subhuman.eugenics.entity.player.phenotype.impl.negroid.bambutid.NorthBantuidPhenotype;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +13,9 @@ public final class PhenotypeEvolutionTree {
     public PhenotypeEvolutionTree(final Map<Class<? extends AbstractPhenotype>, Node> map) {
         this.map = map;
 
-        // TODO: Define the evolution tree
+        this.addNode(NorthBantuidPhenotype.class);
+
+        this.addNode(MalagasidPhenotype.class);
     }
 
     public static final class Node {

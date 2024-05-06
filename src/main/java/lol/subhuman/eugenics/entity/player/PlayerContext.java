@@ -2,8 +2,10 @@ package lol.subhuman.eugenics.entity.player;
 
 import lol.subhuman.eugenics.database.Include;
 import lol.subhuman.eugenics.entity.CustomEntityContext;
-import lol.subhuman.eugenics.entity.player.champion.AbstractChampion;
+import lol.subhuman.eugenics.entity.damage.DamageContext;
+import lol.subhuman.eugenics.entity.damage.DamageResult;
 import lol.subhuman.eugenics.entity.player.champion.ChampionContext;
+import lol.subhuman.eugenics.entity.player.phenotype.AbstractPhenotype;
 import lol.subhuman.eugenics.entity.player.phenotype.PhenotypeContext;
 import lol.subhuman.eugenics.entity.player.phenotype.impl.NoPhenotype;
 import lol.subhuman.eugenics.property.ClampedProperty;
@@ -64,5 +66,20 @@ public final class PlayerContext extends CustomEntityContext {
 
     public void setChampion(final ChampionContext<?> value) {
         this.champion.setValue(value);
+    }
+
+    @Override
+    public DamageResult onAttacked(final DamageContext context) {
+        final double damage = context.getDamage();
+        final boolean trueDamage = context.isTrueDamage();
+
+        final double defense = this.defense.getValue();
+        final double defensePercentage = defense / (defense + 100);
+
+        final double calculatedDamage = damage * (1 - defensePercentage);
+        final DamageResult baseDamageResult = new DamageResult(calculatedDamage);
+
+        final AbstractPhenotype phenotype = this.phenotype.getValue().getBackingPhenotype();
+        return phenotype.modifyDamage(context, baseDamageResult.getDamage());
     }
 }
