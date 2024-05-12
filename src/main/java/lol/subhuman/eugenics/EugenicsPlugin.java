@@ -31,4 +31,12 @@ public final class EugenicsPlugin extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+    public IEntityContextRepository getEntityRepository() {
+        return entityRepository;
+    }
+
+    public IPlayerContextRepository getPlayerRepository() {
+        return playerRepository;
+    }
 }

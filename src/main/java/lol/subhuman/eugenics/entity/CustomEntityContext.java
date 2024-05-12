@@ -3,10 +3,14 @@ package lol.subhuman.eugenics.entity;
 import lol.subhuman.eugenics.database.Include;
 import lol.subhuman.eugenics.entity.damage.DamageContext;
 import lol.subhuman.eugenics.entity.damage.DamageResult;
+import lol.subhuman.eugenics.entity.effect.CustomEffect;
 import lol.subhuman.eugenics.property.StandardProperty;
 import lol.subhuman.eugenics.property.bindings.IProperty;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomEntityContext {
     protected final LivingEntity backingEntity;
@@ -27,6 +31,9 @@ public class CustomEntityContext {
     @Include
     protected final IProperty<Double> defense;
 
+    @Include
+    protected final IProperty<List<CustomEffect>> effects;
+
     public CustomEntityContext(final LivingEntity backingEntity) {
         this.backingEntity = backingEntity;
 
@@ -37,8 +44,9 @@ public class CustomEntityContext {
         this.maximumHealth = new StandardProperty<>("maximumHealth", backingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
 
         this.defense = new StandardProperty<>("defense", 0.0);
-
         this.baseDamage = new StandardProperty<>("baseDamage", 0.0);
+
+        this.effects = new StandardProperty<>("effects", new ArrayList<>());
     }
 
     public LivingEntity getBackingEntity() {
@@ -64,5 +72,13 @@ public class CustomEntityContext {
         }
 
         return null;
+    }
+
+    public double getHealth() {
+        return currentHealth.getValue();
+    }
+
+    public void setHealth(final double health) {
+        currentHealth.setValue(health);
     }
 }

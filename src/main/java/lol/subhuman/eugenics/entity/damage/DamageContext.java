@@ -1,6 +1,6 @@
 package lol.subhuman.eugenics.entity.damage;
 
-public abstract class DamageContext {
+public final class DamageContext {
     private final double damage;
     private final boolean trueDamage;
     private final DamageType damageType;
